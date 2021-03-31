@@ -16,7 +16,8 @@ class _SplashViewState extends State<SplashView> {
 
   void _initData() async {
     await Future.delayed(Duration(milliseconds: 2000));
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeView()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => HomeView()));
   }
 
   @override

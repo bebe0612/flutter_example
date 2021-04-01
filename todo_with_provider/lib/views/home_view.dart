@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:todo_with_provider/widgets/widgets.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -14,11 +14,7 @@ class HomeView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TableCalendar(
-            focusedDay: DateTime.now(),
-            firstDay: DateTime.parse('2012-01-01'),
-            lastDay: DateTime.parse('2030-12-30'),
-          ),
+          CustomCalendar(),
           Divider(),
           Container(
             alignment: Alignment.centerLeft,

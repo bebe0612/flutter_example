@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Todo App With Provider"),
+        title: Text("My Todo Calendar"),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -13,9 +14,29 @@ class HomeView extends StatelessWidget {
       ),
       body: Column(
         children: [
+          TableCalendar(
+            focusedDay: DateTime.now(),
+            firstDay: DateTime.parse('2012-01-01'),
+            lastDay: DateTime.parse('2030-12-30'),
+          ),
+          Divider(),
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              "20. 04. 02",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
           ListTile(
-              title: Text("아침에 할일"),
-              subtitle: Text("빨래 정리하고 출근 준비하기"),
+              title: Text(
+                "Morning exercise",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              subtitle: Text(
+                "drying, washing",
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
               leading: AspectRatio(
                 aspectRatio: 1,
                 child: Center(

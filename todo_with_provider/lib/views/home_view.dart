@@ -15,7 +15,12 @@ class HomeView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          CustomCalendar(),
+          CustomCalendar(
+            initialFocusedDate: DateTime.now(),
+            onFocusedDateChanged: (date) {
+              //
+            },
+          ),
           Divider(),
           Container(
             alignment: Alignment.centerLeft,

@@ -15,10 +15,14 @@ dependencies:
   equatable: ^2.0.0
   provider: ^5.0.0
   table_calendar: ^3.0.0-nullsafety.1
+  hive: ^2.0.2
+  hive_flutter: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^1.0.1
+  build_runner: ^1.12.2
 
 flutter:
 

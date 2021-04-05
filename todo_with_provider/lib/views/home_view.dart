@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_with_provider/models/todo.dart';
 import 'package:todo_with_provider/providers/todo_provider.dart';
 import 'package:todo_with_provider/utils/util.dart';
 import 'package:todo_with_provider/widgets/widgets.dart';
@@ -67,34 +66,5 @@ class HomeView extends StatelessWidget {
 
   void _onFloatingActionButtonPressed() async {
     //
-  }
-}
-
-class CustomTodoTile extends StatelessWidget {
-  const CustomTodoTile({
-    Key? key,
-    @required this.todo,
-  }) : super(key: key);
-  final Todo? todo;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        todo!.title,
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-      subtitle: Text(
-        todo!.body,
-        style: Theme.of(context).textTheme.bodyText2,
-      ),
-      leading: AspectRatio(
-        aspectRatio: 1,
-        child: Center(
-          child: Icon(
-            Icons.check_box,
-          ),
-        ),
-      ),
-    );
   }
 }

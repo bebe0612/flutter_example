@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_with_provider/models/todo.dart';
 import 'package:todo_with_provider/providers/todo_provider.dart';
 import 'package:todo_with_provider/utils/util.dart';
+import 'package:todo_with_provider/views/add_todo_view.dart';
 import 'package:todo_with_provider/widgets/widgets.dart';
 
 class HomeView extends StatefulWidget {
@@ -38,27 +40,52 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           Divider(),
-          _buildTodoTitle(context),
+          _buildTodoTitle(),
           Expanded(
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ...todoProvider
-                        .getTodos(_selectedDay)
-                        .map((e) => TodoTile(todo: e))
-                        .toList()
-                  ],
-                ),
-              ),
-            ),
+            child: _buildTodoTileList(),
           )
         ],
       ),
     );
   }
 
-  Container _buildTodoTitle(BuildContext context) {
+  Widget _buildTodoTileList() {
+    var todoProvider = Provider.of<TodoProvider>(context, listen: false);
+    List<Todo> todoList = todoProvider.getTodos(_selectedDay);
+
+    return todoList.length == 0
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  CupertinoIcons.ellipses_bubble,
+                  color: Colors.grey,
+                  size: 30,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Nothing To Do !",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                  ),
+                )
+              ],
+            ),
+          )
+        : Scrollbar(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...todoList.map((e) => TodoTile(todo: e)).toList(),
+                ],
+              ),
+            ),
+          );
+  }
+
+  Container _buildTodoTitle() {
     return Container(
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.symmetric(horizontal: 15),
@@ -82,6 +109,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _onFloatingActionButtonPressed() async {
-    //
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddTodoView(),
+      ),
+    );
   }
 }

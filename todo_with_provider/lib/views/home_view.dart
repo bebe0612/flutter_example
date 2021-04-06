@@ -5,7 +5,15 @@ import 'package:todo_with_provider/providers/todo_provider.dart';
 import 'package:todo_with_provider/utils/util.dart';
 import 'package:todo_with_provider/widgets/widgets.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  // page's state
+  DateTime _selectedDay = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     var todoProvider = Provider.of<TodoProvider>(context);
@@ -21,44 +29,53 @@ class HomeView extends StatelessWidget {
       body: Column(
         children: [
           CustomCalendar(
-            initialFocusedDate: DateTime.now(),
-            onFocusedDateChanged: (date) {},
+            initialSelectedDay: DateTime.now(),
+            selectedDay: _selectedDay,
+            onDaySelected: (day) {
+              setState(() {
+                _selectedDay = day;
+              });
+            },
           ),
           Divider(),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              children: [
-                Icon(
-                  CupertinoIcons.calendar,
-                  color: Theme.of(context).primaryColor,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  prettyDateToString(todoProvider.focusedDate),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Theme.of(context).primaryColor),
-                ),
-              ],
-            ),
-          ),
+          _buildTodoTitle(context),
           Expanded(
             child: Scrollbar(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     ...todoProvider
-                        .getTodos(todoProvider.focusedDate)
-                        .map((e) => CustomTodoTile(todo: e))
+                        .getTodos(_selectedDay)
+                        .map((e) => TodoTile(todo: e))
                         .toList()
                   ],
                 ),
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Container _buildTodoTitle(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        children: [
+          Icon(
+            CupertinoIcons.calendar,
+            color: Theme.of(context).primaryColor,
+          ),
+          SizedBox(width: 10),
+          Text(
+            prettyDateToString(_selectedDay),
+            style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(color: Theme.of(context).primaryColor),
+          ),
         ],
       ),
     );

@@ -6,13 +6,6 @@ class TodoProvider extends ChangeNotifier {
 
   TodoProvider();
 
-  DateTime _focusedDate = DateTime.now();
-  DateTime get focusedDate => _focusedDate;
-  set focusedDate(DateTime date) {
-    _focusedDate = date;
-    notifyListeners();
-  }
-
   Todo? _currentTodo;
   Todo get currentTodo => _currentTodo!;
   set currentTodo(Todo todo) {

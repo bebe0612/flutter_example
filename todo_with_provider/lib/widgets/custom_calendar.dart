@@ -35,7 +35,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      selectedDayPredicate: (day) => day == widget.selectedDay,
+      selectedDayPredicate: (day) =>
+          day.year == widget.selectedDay!.year &&
+          day.month == widget.selectedDay!.month &&
+          day.day == widget.selectedDay!.day,
       focusedDay: _focusedDay!,
       firstDay: DateTime.parse('2012-01-01'),
       lastDay: DateTime.parse('2030-12-30'),

@@ -93,15 +93,15 @@ class _HomeViewState extends State<HomeView> {
         children: [
           Icon(
             CupertinoIcons.calendar,
-            color: Theme.of(context).primaryColor,
+            color: Colors.black,
           ),
           SizedBox(width: 10),
           Text(
             prettyDateToString(_selectedDay),
             style: Theme.of(context)
                 .textTheme
-                .headline6!
-                .copyWith(color: Theme.of(context).primaryColor),
+                .headline5!
+                .copyWith(color: Colors.black),
           ),
         ],
       ),

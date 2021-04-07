@@ -18,6 +18,7 @@ class TodoProvider extends ChangeNotifier {
 
   // get todo objects at specific datetime
   List<Todo> getTodos(DateTime dateTime) {
+    return []; // TODO:: for debug
     if (todoMap.length == 0) {
       Map jsonMap = DatabaseService().read(kTodoBoxName)!;
 

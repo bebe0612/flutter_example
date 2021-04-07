@@ -16,4 +16,14 @@ class Todo extends Equatable {
     required this.body,
     required this.isDone,
   });
+
+  factory Todo.fromJson(Map<String, dynamic> json) {
+    return Todo(
+      body: '',
+      date: DateTime.now(),
+      id: '1',
+      isDone: true,
+      title: '',
+    );
+  }
 }

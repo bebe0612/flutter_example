@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:todo_with_provider/models/todo.dart';
-import 'package:todo_with_provider/services/database_service.dart';
 
 class TodoProvider extends ChangeNotifier {
-  List<Todo> todoList = [];
   Map<DateTime, List<Todo>> todoMap = {};
   TodoProvider();
 
@@ -18,12 +14,13 @@ class TodoProvider extends ChangeNotifier {
 
   // get todo objects at specific datetime
   List<Todo> getTodos(DateTime dateTime) {
-    return []; // TODO:: for debug
     if (todoMap.length == 0) {
-      Map jsonMap = DatabaseService().read(kTodoBoxName)!;
+      // Map jsonMap = DatabaseService().read(kTodoBoxName)!;
 
-      todoMap = jsonMap.map(
-          (key, value) => MapEntry(DateTime.parse(key), jsonDecode(value)));
+      // todoMap = jsonMap.map(
+      //     (key, value) => MapEntry(DateTime.parse(key), jsonDecode(value)));
+
+      return [];
     }
     return todoMap[dateTime]!;
   }

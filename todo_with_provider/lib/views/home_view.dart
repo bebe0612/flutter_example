@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_with_provider/models/todo.dart';
 import 'package:todo_with_provider/providers/todo_provider.dart';
@@ -109,10 +110,43 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _onFloatingActionButtonPressed() async {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => AddTodoView(),
-      ),
-    );
+    Map<DateTime, List<Todo>> todoMap = {
+      DateTime.now(): [
+        Todo(
+          body: 'body!!',
+          date: DateTime.now(),
+          id: 'id!!',
+          isDone: false,
+          title: 'title!!',
+        ),
+        Todo(
+          body: 'body!3!',
+          date: DateTime.now(),
+          id: 'id!3!',
+          isDone: false,
+          title: 'title!3!',
+        ),
+      ],
+      DateTime.now().add(Duration(days: 1)): [
+        Todo(
+          body: 'body!!2',
+          date: DateTime.now(),
+          id: 'id!!2',
+          isDone: false,
+          title: 'title!!2',
+        ),
+      ],
+    };
+
+    var box = Hive.box('test');
+
+    todoMap.forEach((key, value) {
+      box.put(key, value);
+    });
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => AddTodoView(),
+    //   ),
+    // );
   }
 }

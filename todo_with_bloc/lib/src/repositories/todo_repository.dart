@@ -10,13 +10,8 @@ class TodoRepository {
   Stream<TodoModel> get onTodoChanged => _streamController.stream;
 
   Future<TodoModel> getTodoModelById(int id) async {
-    await Future.delayed(Duration(milliseconds: 2000));
-    return TodoModel(
-      id: id,
-      title: '세탁하기',
-      subTitle: '세탁',
-      date: DateTime.now(),
-    );
+    final record = await DatabaseHelper().selectById(id);
+    return TodoModel.fromJson(record);
   }
 
   Future<List<TodoModel>> getTodoList() async {
@@ -26,7 +21,6 @@ class TodoRepository {
   }
 
   Future<void> addTodo(TodoAddForm form) async {
-    await Future.delayed(Duration(milliseconds: 1000));
     await DatabaseHelper().insert(form.toJson());
     _streamController
         .add(TodoModel(id: 1, title: '', subTitle: '', date: DateTime.now()));

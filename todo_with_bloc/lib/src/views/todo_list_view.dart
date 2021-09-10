@@ -45,7 +45,9 @@ class TodoListView extends StatelessWidget {
                       trailing: Icon(Icons.arrow_right),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) => TodoDetailView()));
+                            builder: (_) => TodoDetailView(
+                                  todoId: e.id,
+                                )));
                       },
                     ),
                   )

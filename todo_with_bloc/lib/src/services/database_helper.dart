@@ -41,4 +41,9 @@ class DatabaseHelper {
     log('SELECT * FROM $_tableName');
     return await database.query(_tableName);
   }
+
+  Future<Json> selectById(int id) async {
+    log('SELECT * FROM $_tableName WHERE id = $id');
+    return (await database.query(_tableName, where: 'id = $id'))[0];
+  }
 }

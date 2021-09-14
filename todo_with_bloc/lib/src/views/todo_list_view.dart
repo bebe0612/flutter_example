@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_with_bloc/src/blocs/todo_list_bloc.dart';
@@ -42,7 +43,41 @@ class TodoListView extends StatelessWidget {
                     (e) => ListTile(
                       title: Text(e.title),
                       subtitle: Text(e.subTitle),
-                      trailing: Icon(Icons.arrow_right),
+                      trailing: IconButton(
+                          onPressed: () {
+                            showCupertinoModalPopup(
+                              context: context,
+                              builder: (_context) {
+                                return CupertinoActionSheet(
+                                  actions: [
+                                    CupertinoActionSheetAction(
+                                      onPressed: () {
+                                        Navigator.of(_context).pop();
+                                      },
+                                      child: Text('Modify'),
+                                    ),
+                                    CupertinoActionSheetAction(
+                                      onPressed: () {
+                                        context
+                                            .read<TodoListBloc>()
+                                            .add(RemoveTodoRequested(e.id));
+                                        Navigator.of(_context).pop();
+                                      },
+                                      child: Text('Remove'),
+                                    ),
+                                  ],
+                                  cancelButton: CupertinoActionSheetAction(
+                                    onPressed: () {
+                                      Navigator.of(_context).pop();
+                                    },
+                                    child: Text('Close'),
+                                    isDestructiveAction: true,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(CupertinoIcons.ellipsis)),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => TodoDetailView(

@@ -13,3 +13,12 @@ class TodoListSuccess extends TodoListState {
 }
 
 class TodoListFail extends TodoListState {}
+
+class TodoListTaskLoading extends TodoListSuccess {
+  TodoListTaskLoading(List<TodoModel> todoList) : super(todoList);
+}
+
+class TodoListTaskFail extends TodoListSuccess {
+  final String msg;
+  TodoListTaskFail(List<TodoModel> todoList, this.msg) : super(todoList);
+}

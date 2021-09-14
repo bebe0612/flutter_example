@@ -33,5 +33,16 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
         yield TodoListFail();
       }
     }
+
+    if (event is RemoveTodoRequested && state is TodoListSuccess) {
+      var currentState = state as TodoListSuccess;
+      yield TodoListTaskLoading(currentState.todoList);
+      try {
+        await _todoRepository.removeTodo(event.todoId);
+        add(TodoListRequested());
+      } catch (e) {
+        yield TodoListTaskFail(currentState.todoList, e.toString());
+      }
+    }
   }
 }

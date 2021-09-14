@@ -46,4 +46,8 @@ class DatabaseHelper {
     log('SELECT * FROM $_tableName WHERE id = $id');
     return (await database.query(_tableName, where: 'id = $id'))[0];
   }
+
+  Future<int> delete(int id) async {
+    return await database.delete(_tableName, where: 'id = $id');
+  }
 }

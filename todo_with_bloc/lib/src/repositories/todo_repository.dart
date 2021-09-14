@@ -25,4 +25,10 @@ class TodoRepository {
     _streamController
         .add(TodoModel(id: 1, title: '', subTitle: '', date: DateTime.now()));
   }
+
+  Future<void> removeTodo(int id) async {
+    await DatabaseHelper().delete(id);
+    _streamController
+        .add(TodoModel(id: 1, title: '', subTitle: '', date: DateTime.now()));
+  }
 }

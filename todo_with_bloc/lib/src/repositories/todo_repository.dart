@@ -31,4 +31,10 @@ class TodoRepository {
     _streamController
         .add(TodoModel(id: 1, title: '', subTitle: '', date: DateTime.now()));
   }
+
+  Future<void> modifyTodo(int id, TodoAddForm form) async {
+    await DatabaseHelper().update(id, form.toJson());
+    _streamController
+        .add(TodoModel(id: 1, title: '', subTitle: '', date: DateTime.now()));
+  }
 }

@@ -48,6 +48,12 @@ class DatabaseHelper {
   }
 
   Future<int> delete(int id) async {
+    log('DELETE * FROM $_tableName WHERE id = $id');
     return await database.delete(_tableName, where: 'id = $id');
+  }
+
+  Future<int> update(int id, Json json) async {
+    log('SELECT * FROM $_tableName WHERE id = $id UPDATE $json');
+    return await database.update(_tableName, json, where: 'id = $id');
   }
 }

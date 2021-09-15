@@ -5,6 +5,7 @@ import 'package:todo_with_bloc/src/blocs/todo_list_bloc.dart';
 import 'package:todo_with_bloc/src/repositories/todo_repository.dart';
 import 'package:todo_with_bloc/src/views/todo_add_view.dart';
 import 'package:todo_with_bloc/src/views/todo_detail_view.dart';
+import 'package:todo_with_bloc/src/views/todo_modify_view.dart';
 
 class TodoListView extends StatelessWidget {
   const TodoListView({Key? key}) : super(key: key);
@@ -53,6 +54,12 @@ class TodoListView extends StatelessWidget {
                                     CupertinoActionSheetAction(
                                       onPressed: () {
                                         Navigator.of(_context).pop();
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) {
+                                            return TodoModifyView(todoModel: e);
+                                          },
+                                        ));
                                       },
                                       child: Text('Modify'),
                                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_with_bloc/core/settings/app_font.dart';
 import 'package:todo_with_bloc/src/blocs/todo_detail_bloc.dart';
 import 'package:todo_with_bloc/src/repositories/todo_repository.dart';
 
@@ -18,9 +19,7 @@ class TodoDetailView extends StatelessWidget {
         todoRepository: context.read<TodoRepository>(),
       )..add(TodoDetailRequested(todoId: todoId)),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Detail'),
-        ),
+        backgroundColor: Colors.blueGrey,
         body: _body(),
       ),
     );
@@ -37,9 +36,37 @@ class TodoDetailView extends StatelessWidget {
           final todo = state.todoModel;
           return Column(
             children: [
-              Text(todo.title),
-              Text(todo.subTitle),
-              Text(todo.date.toString()),
+              SafeArea(bottom: false, child: Container()),
+              Text(
+                'Double tap to exit',
+                style: AppFont.p1.copyWith(color: Colors.white),
+              ),
+              Spacer(),
+              Text(
+                todo.title,
+                style: AppFont.h1.copyWith(color: Colors.white),
+              ),
+              Text(
+                todo.subTitle,
+                style: AppFont.p1.copyWith(color: Colors.white),
+              ),
+              Spacer(),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 26),
+                      child: CupertinoButton.filled(
+                          child: Text('DONE', style: AppFont.p1),
+                          onPressed: () {},
+                          borderRadius: BorderRadius.circular(30.0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 25.0, vertical: 15.0)),
+                    ),
+                  ),
+                ],
+              ),
+              SafeArea(top: false, child: Container()),
             ],
           );
         }
